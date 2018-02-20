@@ -1,0 +1,106 @@
+@import "_help/_var.sass";
+
+.clearfix,
+.clearfix::before,
+.clearfix::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+body, html {
+	height: 100%;
+	width: 100%;
+	font: 16px/1.5 'arial', 'sans-serif';
+	background: #f9f9f9;
+}
+.container {
+	max-width: 1140px;
+	width: 100%;
+	margin: 0 auto;
+	background: #fff;
+	box-shadow: 0 0 16px 2px rgba(75, 75, 75, .1);
+	padding: 0;
+	height: 100vh;
+	position: relative;
+}
+.select_size_container {
+	background: #fff;
+	height: 80px;
+	position: relative;
+	width: 100%;
+}
+.select_size_container-active {
+	background: #47d4ff;
+}
+
+.input_count {
+	margin: 0 auto;
+}
+
+.open_menu_container {
+	position: absolute;
+	top: 50%;
+	margin-top: -16px;
+	right: 45px;
+}
+
+.open_menu {
+	display: inline-block;
+}
+
+.btn_open_menu {
+	position: relative;
+	display: inline-block;
+	&:before {
+		top: -12px;
+	}
+	&:after {
+		top: 8px;
+	}
+}
+
+.btn_open_menu::before,
+.btn_open_menu::after {
+	content: '';
+	display: block;
+	position: relative;
+}
+
+.btn_open_menu,
+.btn_open_menu::before,
+.btn_open_menu::after {
+	width: 45px;
+	height: 4px;
+	background: #333;
+}
+
+.btn_open_menu-opened,
+.btn_open_menu-opened::before,
+.btn_open_menu-opened::after {
+	background: #fff;
+}
+
+.container__work {
+	text-align: center;
+	font-size: 0;
+	padding-top: 200px;
+}
+
+.item__num {
+	display: inline-block;
+	cursor: pointer;
+	width: 75px;
+	height: 75px;
+	background: #47d4ff;
+	border-radius: 8px;
+	color: #fff;
+	font-size: 24px;
+	margin: 10px;
+	line-height: 75px;
+	font-weight: bold;
+	box-shadow: 2px 2px 16px 0px rgba(71, 212, 255, .1);
+}
+.item__num-active {
+	background: #444;
+}
