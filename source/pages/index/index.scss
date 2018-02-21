@@ -7,6 +7,9 @@
 	display: block;
 	clear: both;
 }
+.hide {
+	opacity: 0;
+}
 
 body, html {
 	height: 100%;
@@ -31,7 +34,7 @@ body, html {
 	width: 100%;
 }
 .select_size_container-active {
-	background: #47d4ff;
+	background: $accent;
 }
 
 .input_count {
@@ -72,35 +75,51 @@ body, html {
 .btn_open_menu::after {
 	width: 45px;
 	height: 4px;
-	background: #333;
+	background: #fff;
 }
 
 .btn_open_menu-opened,
 .btn_open_menu-opened::before,
 .btn_open_menu-opened::after {
-	background: #fff;
+	background: #000;
 }
 
 .container__work {
-	text-align: center;
 	font-size: 0;
-	padding-top: 200px;
+	margin-top: 200px;
+	text-align: center;
+}
+.container__work__inner {
+	display: inline-block;
+	padding: 16px;
+	background: #333;
+	border-radius: 6px;
 }
 
 .item__num {
 	display: inline-block;
 	cursor: pointer;
-	width: 75px;
-	height: 75px;
-	background: #47d4ff;
-	border-radius: 8px;
-	color: #fff;
-	font-size: 24px;
-	margin: 10px;
-	line-height: 75px;
+	width: 50px;
+	height: 50px;
+	background: #fff;
+	color: #333;
+	border-radius: 4px;
+	font-size: 26px;
+	margin: 2px;
+	line-height: 50px;
 	font-weight: bold;
-	box-shadow: 2px 2px 16px 0px rgba(71, 212, 255, .1);
+	box-shadow: 2px 2px 12px 0px rgba(71, 212, 255, .2);
 }
+
+.item__num::selection {
+   background: transparent;
+}
+
+.item__num::-moz-selection {
+   background: transparent;
+}
+
 .item__num-active {
-	background: #444;
+	background: $accent;
+	box-shadow: 2px 2px 12px 0px rgba(71, 71, 71, .2);
 }

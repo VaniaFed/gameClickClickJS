@@ -4,9 +4,15 @@ import "./index.scss";
 
 var open_menu = function () {
 	var el = document.querySelector('.open_menu');
+
 	el.onclick = function() {
 		var el_cont = document.querySelector('.select_size_container'),
-				el_open_menu = document.querySelector('.btn_open_menu');
+				el_open_menu = document.querySelector('.btn_open_menu'),
+				all_inputs = document.querySelectorAll('.select_size_container input');
+
+		for (var i = 0; i < all_inputs.length; i++) {
+			all_inputs[i].classList.toggle('hide');
+		}
 
 		el_cont.classList.toggle('select_size_container-active');
 		el_open_menu.classList.toggle('btn_open_menu-opened');
@@ -16,24 +22,46 @@ var open_menu = function () {
 
 open_menu();
 
-var el = document.getElementsByClassName('item__num');
+//отрисовать элементы
+function render() {
+	var el = document.getElementsByClassName('item__num');
+	var arr = new Array;
 
-console.log(el.length);
-for (var i = 0; i < el.length; i++) {
-    el[i].innerHTML = '' + i;
+	for (var i = 0; i < el.length; i++) {
+		arr[i] = i+1;
+		el[i].innerHTML = '' + i+1;
+	}
+
+	blend(arr);
+
+	for (var i = 0; i < el.length; i++) {
+		el[i].innerHTML = arr[i];
+	}
 }
-var currentNum = 0;
+
+//Перемешать элементы массива
+function blend(arr) {
+	for (var i = arr.length - 1; i >= 0; i--) {
+		var rand = Math.round(0 + Math.random() * (arr.length - 1));
+		var temp = arr[rand];
+		arr[rand] = arr[i];
+		arr[i] = temp;
+	}
+}
+
+
 function playGame () {
-
-	el[currentNum].onclick = function () {
-			console.log(this);
-	};
-
-	currentNum++;
-
-	setInterval(function () {
-	  console.log(el[currentNum]);
-	}, 1000);
+	var el = document.getElementsByClassName('item__num');
+	var currentNum = 1;
+	for (var i = 0; i < el.length; i++) {
+		el[i].onclick = function () {
+			if (this.textContent == currentNum) {
+				this.classList.toggle('item__num-active');
+					currentNum++;
+			}
+		};
+	}
 }
 
+render();
 playGame();
