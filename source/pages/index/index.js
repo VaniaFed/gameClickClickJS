@@ -2,7 +2,17 @@
 import "./index.scss";
 'use strict';
 
-var open_menu = function () {
+
+
+function sizeInfoContainer() {
+	var container = document.querySelector('.container__work__inner'),
+			el = document.querySelector('.info_panel__container');
+
+	el.style.width = container.offsetWidth + 'px';
+	console.log(el.style.width);
+}
+
+function open_menu () {
 	var el = document.querySelector('.open_menu');
 
 	el.onclick = function() {
@@ -19,26 +29,6 @@ var open_menu = function () {
 	}
 }
 
-
-open_menu();
-
-//отрисовать элементы
-function render() {
-	var el = document.getElementsByClassName('item__num');
-	var arr = new Array;
-
-	for (var i = 0; i < el.length; i++) {
-		arr[i] = i+1;
-		el[i].innerHTML = '' + i+1;
-	}
-
-	blend(arr);
-
-	for (var i = 0; i < el.length; i++) {
-		el[i].innerHTML = arr[i];
-	}
-}
-
 //Перемешать элементы массива
 function blend(arr) {
 	for (var i = arr.length - 1; i >= 0; i--) {
@@ -49,19 +39,59 @@ function blend(arr) {
 	}
 }
 
+//отрисовать элементы
+function render() {
+	var el = document.getElementsByClassName('item__num');
+	var arr = new Array;
+
+	for (var i = 0; i < el.length; i++) {
+		arr[i] = i+1;
+		el[i].innerHTML = '' + i+1;
+		if (el[i].classList.contains('item__num-active')) {
+			el[i].classList.remove('item__num-active');
+		}
+	}
+
+	blend(arr);
+
+	for (var i = 0; i < el.length; i++) {
+		el[i].innerHTML = arr[i];
+	}
+}
 
 function playGame () {
-	var el = document.getElementsByClassName('item__num');
-	var currentNum = 1;
+	var score = 0,
+			currentNum = 1,
+			el = document.getElementsByClassName('item__num'),
+			scoreEl = document.querySelector('.info_panel__container .score');
+
 	for (var i = 0; i < el.length; i++) {
 		el[i].onclick = function () {
 			if (this.textContent == currentNum) {
 				this.classList.toggle('item__num-active');
-					currentNum++;
+				currentNum++;
+				score += 100;
+			} else if (!this.classList.contains('item__num-active')) {
+				render();
+				for (var i = 0; i < el.length; i++) {
+					if (el[i].classList.contains('item__num-active'))
+						el[i].classList.remove('item__num-active');
+				}
+				currentNum = 1;
+				if (score >= 100)
+					score -= 100;
 			}
+			if (currentNum > el.length) {
+				render();
+				currentNum = 1;
+			}
+			console.log('currentNum = ' + currentNum + ' lenght = ' + Number(el.length));
+			scoreEl.innerHTML = 'Score: ' + score;
 		};
 	}
 }
 
+sizeInfoContainer();
+open_menu();
 render();
 playGame();
