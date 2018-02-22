@@ -13,13 +13,17 @@ function sizeInfoContainer() {
 }
 
 function open_menu () {
-	var el = document.querySelector('.open_menu');
-
+	var el = document.querySelector('.open_menu'),
+			el_cont = document.querySelector('.select_size_container'),
+			el_open_menu = document.querySelector('.btn_open_menu'),
+			all_inputs = document.querySelectorAll('.select_size_container input');
+			
+			for (var i = 0; i < all_inputs.length; i++) {
+				all_inputs[i].classList.toggle('hide');
+			}
+			el_cont.classList.toggle('select_size_container-active');
+			el_open_menu.classList.toggle('btn_open_menu-opened');
 	el.onclick = function() {
-		var el_cont = document.querySelector('.select_size_container'),
-				el_open_menu = document.querySelector('.btn_open_menu'),
-				all_inputs = document.querySelectorAll('.select_size_container input');
-
 		for (var i = 0; i < all_inputs.length; i++) {
 			all_inputs[i].classList.toggle('hide');
 		}
