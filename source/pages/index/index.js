@@ -2,8 +2,6 @@
 import "./index.scss";
 'use strict';
 
-
-
 function sizeInfoContainer() {
 	var container = document.querySelector('.container__work__inner'),
 			el = document.querySelector('.info_panel__container');
@@ -17,7 +15,7 @@ function open_menu () {
 			el_cont = document.querySelector('.select_size_container'),
 			el_open_menu = document.querySelector('.btn_open_menu'),
 			all_inputs = document.querySelectorAll('.select_size_container input');
-			
+
 			for (var i = 0; i < all_inputs.length; i++) {
 				all_inputs[i].classList.toggle('hide');
 			}
@@ -34,7 +32,7 @@ function open_menu () {
 }
 
 //Перемешать элементы массива
-function blend(arr) {
+function blend (arr) {
 	for (var i = arr.length - 1; i >= 0; i--) {
 		var rand = Math.round(0 + Math.random() * (arr.length - 1));
 		var temp = arr[rand];
@@ -44,7 +42,7 @@ function blend(arr) {
 }
 
 //отрисовать элементы
-function render() {
+function render () {
 	var el = document.getElementsByClassName('item__num');
 	var arr = new Array;
 
@@ -63,11 +61,37 @@ function render() {
 	}
 }
 
+function timer (start, direction) {
+	var current_iteration = start;
+	return function () {
+		if (current_iteration >= 0) {
+		 	return current_iteration--;
+		}
+		else return current_iteration = 30;
+	}
+}
+
 function playGame () {
 	var score = 0,
 			currentNum = 1,
 			el = document.getElementsByClassName('item__num'),
-			scoreEl = document.querySelector('.info_panel__container .score');
+			scoreEl = document.querySelector('.info_panel__container .score'),
+			timerEl = document.querySelector('.info_panel__container .timer');
+
+	var timer_iteration = timer(30);
+	setInterval(function () {
+		var iteration = timer_iteration();
+		timerEl.innerHTML = 'Timer: ' + iteration + 's';
+		if (iteration === 0) {
+			score = 0;
+			currentNum = 1;
+			scoreEl.innerHTML = 'Score: ' + score;
+			for (var i = 0; i < el.length; i++) {
+				if (el[i].classList.contains('item__num-active'))
+					el[i].classList.remove('item__num-active');
+			}
+		}
+	}, 1000);
 
 	for (var i = 0; i < el.length; i++) {
 		el[i].onclick = function () {
@@ -89,7 +113,6 @@ function playGame () {
 				render();
 				currentNum = 1;
 			}
-			console.log('currentNum = ' + currentNum + ' lenght = ' + Number(el.length));
 			scoreEl.innerHTML = 'Score: ' + score;
 		};
 	}

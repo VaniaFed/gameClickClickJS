@@ -1,5 +1,9 @@
 @import "_help/_var.sass";
 
+* {
+	box-sizing: border-box;	
+}
+
 .clearfix,
 .clearfix::before,
 .clearfix::after {
@@ -97,14 +101,18 @@ body, html {
 }
 
 .info_panel__container {
-	background: #eee;
 	margin: 0 auto;
 	position: relative;
 }
+.timer, .score {
+	padding: 12px 16px;
+	display: inline-block;
+}
+.timer {
+	text-align: left;
+}
 .score {
-	padding: 10px 8px;
-	box-shadow: 5px 3px 13px #ddd;
-	margin-bottom: 12px;
+	text-align: right;
 }
 
 .item__num {
