@@ -2,32 +2,27 @@
 import "./index.scss";
 'use strict';
 
-function sizeInfoContainer() {
-	var container = document.querySelector('.container__work__inner'),
-			el = document.querySelector('.info_panel__container');
-
-	el.style.width = container.offsetWidth + 'px';
-	console.log(el.style.width);
+function sizeInfoContainer(elem) {
+	var container = document.querySelector('.container__work__inner');
+	elem.style.width = container.offsetWidth + 'px';
 }
 
-function open_menu () {
-	var el = document.querySelector('.open_menu'),
-			el_cont = document.querySelector('.select_size_container'),
-			el_open_menu = document.querySelector('.btn_open_menu'),
-			all_inputs = document.querySelectorAll('.select_size_container input');
+var el = document.querySelector('.info_panel__container');
+sizeInfoContainer(el);
 
-			for (var i = 0; i < all_inputs.length; i++) {
-				all_inputs[i].classList.toggle('hide');
-			}
-			el_cont.classList.toggle('select_size_container-active');
-			el_open_menu.classList.toggle('btn_open_menu-opened');
-	el.onclick = function() {
-		for (var i = 0; i < all_inputs.length; i++) {
-			all_inputs[i].classList.toggle('hide');
+function open_menu () {
+	var elLinkOpen = document.querySelector('.open_menu'),
+			elContainer = document.querySelector('.select_size_container'),
+			elOpenMenu = document.querySelector('.btn_open_menu'),
+			allInputs = document.querySelectorAll('.select_size_container input');
+
+	elLinkOpen.onclick = function() {
+		for (var i = 0; i < allInputs.length; i++) {
+			allInputs[i].classList.toggle('hide');
 		}
 
-		el_cont.classList.toggle('select_size_container-active');
-		el_open_menu.classList.toggle('btn_open_menu-opened');
+		elContainer.classList.toggle('accent_bg');
+		elOpenMenu.classList.toggle('white_bg');
 	}
 }
 
@@ -41,33 +36,42 @@ function blend (arr) {
 	}
 }
 
-//отрисовать элементы
+// Удалить класс, если он есть у элемента
+var ifElemHasClassDeleteClass = function (elClass) {
+	for (var i = 0; i < elClass.length; i++) {
+		if (elClass[i].classList.contains('item__num-active')) {
+			elClass[i].classList.remove('item__num-active');
+		}
+	}
+}
+
+// Отрисовать элементы
 function render () {
-	var el = document.getElementsByClassName('item__num');
+	var elItem = document.getElementsByClassName('item__num');
 	var arr = new Array;
 
-	for (var i = 0; i < el.length; i++) {
+	for (var i = 0; i < elItem.length; i++)
+	{
 		arr[i] = i + 1;
-		el[i].innerHTML = '' + i + 1;
-		if (el[i].classList.contains('item__num-active')) {
-			el[i].classList.remove('item__num-active');
-		}
 	}
 
 	blend(arr);
 
-	for (var i = 0; i < el.length; i++) {
-		el[i].innerHTML = arr[i];
+	for (var i = 0; i < elItem.length; i++) {
+		elItem[i].innerHTML = arr[i];
+		ifElemHasClassDeleteClass(elItem[i]);
 	}
 }
 
-function timer (start, direction) {
-	var current_iteration = start;
-	return function () {
-		if (current_iteration >= 0) {
-		 	return current_iteration--;
+function timer (start) {
+	var current_iteration = start || 0;
+	return function (f) {
+		var callback = f || function () {};
+		if (current_iteration === 0) {
+			callback();
+			current_iteration = 30;
 		}
-		else return current_iteration = 30;
+		return current_iteration--;
 	}
 }
 
@@ -79,35 +83,48 @@ function playGame () {
 			timerEl = document.querySelector('.info_panel__container .timer');
 
 	var timer_iteration = timer(30);
-	setInterval(function () {
-		var iteration = timer_iteration();
-		timerEl.innerHTML = 'Timer: ' + iteration + 's';
-		if (iteration === 0) {
+
+	var successClick = function () {
+		this.classList.toggle('item__num-active');
+		currentNum++;
+		score += Math.round(100 + Math.random() * (150 - 100));
+
+	}
+
+	setInterval (function () {
+		var iteration = timer_iteration(function () {
+//
+//
+//
+// ОТОБРОЗИТЬ МОДАЛЬНОЕ ОКНО
+// С РЕЗУЛЬТАТАМИ
+// И ПРЕДЛОГОМ ПРОДОЛЖИТЬ
+//
+//
+//
 			score = 0;
 			currentNum = 1;
 			scoreEl.innerHTML = 'Score: ' + score;
-			for (var i = 0; i < el.length; i++) {
-				if (el[i].classList.contains('item__num-active'))
-					el[i].classList.remove('item__num-active');
-			}
-		}
+			ifElemHasClassDeleteClass(el);
+		});
+		timerEl.innerHTML = 'Timer: ' + iteration + 's';
 	}, 1000);
 
 	for (var i = 0; i < el.length; i++) {
 		el[i].onclick = function () {
-			if (this.textContent == currentNum) {
-				this.classList.toggle('item__num-active');
-				currentNum++;
-				score += 100;
-			} else if (!this.classList.contains('item__num-active')) {
+			if (+this.textContent === currentNum) {
+				successClick.call(this);
+
+			} else if (!this.classList.contains('item__num-active')) { // не туда нажал, сброс
 				render();
-				for (var i = 0; i < el.length; i++) {
-					if (el[i].classList.contains('item__num-active'))
-						el[i].classList.remove('item__num-active');
-				}
+				ifElemHasClassDeleteClass(el);
 				currentNum = 1;
-				if (score >= 100)
-					score -= 100;
+				if (score >= 100) {
+					score -= Math.round(80 + Math.random() * (100 - 80));
+				} else {
+					score = 0;
+				}
+
 			}
 			if (currentNum > el.length) {
 				render();
@@ -118,7 +135,6 @@ function playGame () {
 	}
 }
 
-sizeInfoContainer();
 open_menu();
 render();
 playGame();

@@ -33,7 +33,7 @@ body, html {
   position: relative;
   width: 100%; }
 
-.select_size_container-active {
+.accent_bg {
   background: #ffc61c; }
 
 .input_count {
@@ -69,9 +69,9 @@ body, html {
   height: 4px;
   background: #fff; }
 
-.btn_open_menu-opened,
-.btn_open_menu-opened::before,
-.btn_open_menu-opened::after {
+.white_bg,
+.white_bg::before,
+.white_bg::after {
   background: #000; }
 
 .container__work {

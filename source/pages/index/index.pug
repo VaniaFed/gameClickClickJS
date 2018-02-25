@@ -8,12 +8,12 @@ html
       .wrapper
         .container
           .select_size_container.select_size_container-active
-            input.input_count.input_count_lines(type='text' placeholder="Колочество строк")
-            input.input_count.input_count_columns(type='text' placeholder="Колочество колонок")
-            input(type='button' value='Сгенерировать')
+            input.input_count.input_count_lines.hide(type='text' placeholder="Колочество строк")
+            input.input_count.input_count_columns.hide(type='text' placeholder="Колочество колонок")
+            input.hide(type='button' value='Сгенерировать')
             .open_menu_container
               a.open_menu(href='#')
-                .btn_open_menu
+                .btn_open_menu.white_bg
           .container__work
             .info_panel__container
               .timer Timer: 30s
