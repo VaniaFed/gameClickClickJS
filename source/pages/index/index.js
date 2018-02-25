@@ -47,8 +47,8 @@ function render () {
 	var arr = new Array;
 
 	for (var i = 0; i < el.length; i++) {
-		arr[i] = i+1;
-		el[i].innerHTML = '' + i+1;
+		arr[i] = i + 1;
+		el[i].innerHTML = '' + i + 1;
 		if (el[i].classList.contains('item__num-active')) {
 			el[i].classList.remove('item__num-active');
 		}
