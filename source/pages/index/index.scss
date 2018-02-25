@@ -7,6 +7,7 @@
 h1, h2, h3, h4, p, a, input {
 	margin: 0;
 	padding: 0;
+	font-family: 'roboto';
 }
 
 input {
@@ -30,9 +31,10 @@ input {
 body, html {
 	height: 100%;
 	width: 100%;
-	font: 16px/1.5 'arial', 'sans-serif';
+	font: 16px/1.5 'roboto', 'arial', 'sans-serif';
 	background: #f9f9f9;
 }
+
 .container {
 	max-width: 1140px;
 	width: 100%;
@@ -80,6 +82,7 @@ body, html {
 	&:before {
 		top: -12px;
 	}
+
 	&:after {
 		top: 8px;
 	}
@@ -122,13 +125,16 @@ body, html {
 	margin: 0 auto;
 	position: relative;
 }
+
 .timer, .score {
 	padding: 12px 16px;
 	display: inline-block;
 }
+
 .timer {
 	text-align: left;
 }
+
 .score {
 	text-align: right;
 }
@@ -175,12 +181,13 @@ body, html {
 
 .modal__inner {
 	text-align: center;
-	padding: 40px 30px 60px;
+	padding: 60px 40px;
 }
 
 .modal__inner__head {
 	color: #333;
-	font-size: 32px;
+	font-size: 30px;
+  font-weight: 700;
 }
 
 .modal__inner__text {
@@ -188,17 +195,22 @@ body, html {
 	color: #333;
 	margin: 0 auto;
 	margin-top: 20px;
+	font-weight: 300;
+	font-size: 18px;
 }
 
 .modal__inner__button {
-	margin-top: 20px;
-	padding: 12px 20px;
+	margin-top: 18px;
+	padding: 12px 24px;
 	font-size: 18px;
 	background: none;
-	border: 5px solid $accent;
+	border: 5px solid #ffc61c;
 	transition: all .3s;
 	cursor: pointer;
+	font-weight: 500;
+	color: #333;
 }
+
 .modal__inner__button:hover {
 	background: $accent;
 	color: #fff;
