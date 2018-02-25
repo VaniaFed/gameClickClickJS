@@ -93,15 +93,15 @@ function playGame () {
 
 	setInterval (function () {
 		var iteration = timer_iteration(function () {
-//
-//
-//
-// ОТОБРОЗИТЬ МОДАЛЬНОЕ ОКНО
-// С РЕЗУЛЬТАТАМИ
-// И ПРЕДЛОГОМ ПРОДОЛЖИТЬ
-//
-//
-//
+		//
+		//
+		//
+		// ОТОБРОЗИТЬ МОДАЛЬНОЕ ОКНО
+		// С РЕЗУЛЬТАТАМИ
+		// И ПРЕДЛОГОМ ПРОДОЛЖИТЬ
+		//
+		//
+		//
 			score = 0;
 			currentNum = 1;
 			scoreEl.innerHTML = 'Score: ' + score;
@@ -136,5 +136,16 @@ function playGame () {
 }
 
 open_menu();
-render();
-playGame();
+
+var buttonStart = document.querySelector('#start_game');
+
+buttonStart.onclick = function () {
+	var pageContainer = document.querySelector('.container'),
+			modalContainer = document.querySelector('.container__modal');
+
+	modalContainer.classList.add('hide');
+	pageContainer.classList.remove('modal-effect');
+
+	render();
+	playGame();
+}

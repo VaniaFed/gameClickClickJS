@@ -1,6 +1,15 @@
 * {
   box-sizing: border-box; }
 
+h1, h2, h3, h4, p, a, input {
+  margin: 0;
+  padding: 0; }
+
+input {
+  border: none;
+  outline: none;
+  border: none; }
+
 .clearfix,
 .clearfix::before,
 .clearfix::after {
@@ -26,6 +35,10 @@ body, html {
   padding: 0;
   height: 100vh;
   position: relative; }
+
+.modal-effect {
+  background: #999;
+  opacity: .3; }
 
 .select_size_container {
   background: #fff;
@@ -122,3 +135,41 @@ body, html {
 .item__num-active {
   background: #ffc61c;
   box-shadow: 2px 2px 12px 0px rgba(71, 71, 71, 0.2); }
+
+.container__modal {
+  background: #fff;
+  max-width: 550px;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 200px;
+  margin: 0 auto; }
+
+.modal__inner {
+  text-align: center;
+  padding: 40px 30px 60px; }
+
+.modal__inner__head {
+  color: #333;
+  font-size: 32px; }
+
+.modal__inner__text {
+  text-align: center;
+  color: #333;
+  margin: 0 auto;
+  margin-top: 20px; }
+
+.modal__inner__button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 18px;
+  background: none;
+  border: 5px solid #ffc61c;
+  transition: all .3s;
+  cursor: pointer; }
+
+.modal__inner__button:hover {
+  background: #ffc61c;
+  color: #fff; }

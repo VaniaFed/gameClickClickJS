@@ -6,7 +6,13 @@ html
         title videoGAMEs OVER
     body
       .wrapper
-        .container
+        .container__modal
+          .modal__inner
+            h1.modal__inner__head Клик-клик
+            p.modal__inner__text Суть игры заключается в последовательном нажатии на цифры, и так до конца, пока вы не дойдете до последней цифры
+              
+            input.modal__inner__button#start_game(type="button" value="Начать игру")
+        .container.modal-effect
           .select_size_container.select_size_container-active
             input.input_count.input_count_lines.hide(type='text' placeholder="Колочество строк")
             input.input_count.input_count_columns.hide(type='text' placeholder="Колочество колонок")
