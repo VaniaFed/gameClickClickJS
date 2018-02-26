@@ -28,6 +28,47 @@ input {
 	display: none;
 }
 
+.hide_element {
+	animation: hide_element .8s forwards;
+}
+
+.start_element {
+	animation: start_element .8s forwards;
+}
+
+@keyframes modal_animate {
+	from {
+		transform: scale(1);
+	}
+	70% {
+		transform: scale(1.1);
+	}
+	to {
+		transform: scale(0);
+	}
+}
+
+@keyframes hide_element {
+	from {
+		transform: scale(1);
+	}
+	40% {
+		transform: scale(1.2);
+	}
+	to {
+		transform: scale(0);
+	}
+}
+
+@keyframes start_element {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+
 body, html {
 	height: 100%;
 	width: 100%;
@@ -41,14 +82,14 @@ body, html {
 	margin: 0 auto;
 	background: #fff;
 	box-shadow: 0 0 16px 2px rgba(75, 75, 75, .1);
-	padding: 0;
 	height: 100vh;
 	position: relative;
+	opacity: .1;
 }
 
 .modal-effect {
-	background: #999;
-	opacity: .3;
+	opacity: 1;
+	transition: all .8s;
 }
 
 .select_size_container {
@@ -162,9 +203,16 @@ body, html {
    background: transparent;
 }
 
-.item__num-active {
-	background: $accent;
+.item__num-active-success {
 	box-shadow: 2px 2px 12px 0px rgba(71, 71, 71, .2);
+	animation: hide_element .8s forwards;
+	transition: background .3s;
+	background: $accent;
+}
+
+.item__num-active-unsuccess {
+	background: $accent2;
+	transition: background .3s;
 }
 
 .container__modal {
@@ -176,6 +224,10 @@ body, html {
 	right: 0;
 	top: 200px;
 	margin: 0 auto;
+}
+
+.modal_hide {
+	animation: modal_animate .8s forwards;
 }
 
 .modal__inner {

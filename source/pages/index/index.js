@@ -1,4 +1,5 @@
 
+import "./normalize.css";
 import "./index.scss";
 'use strict';
 
@@ -37,10 +38,10 @@ function blend (arr) {
 }
 
 // Удалить класс, если он есть у элемента
-var ifElemHasClassDeleteClass = function (elClass) {
+var ifElemHasClassDeleteClass = function (elClass, nameClass) {
 	for (var i = 0; i < elClass.length; i++) {
-		if (elClass[i].classList.contains('item__num-active')) {
-			elClass[i].classList.remove('item__num-active');
+		if (elClass[i].classList.contains(nameClass)) {
+			elClass[i].classList.remove(nameClass);
 		}
 	}
 }
@@ -59,53 +60,66 @@ function render () {
 
 	for (var i = 0; i < elItem.length; i++) {
 		elItem[i].innerHTML = arr[i];
-		ifElemHasClassDeleteClass(elItem[i]);
 	}
+
+	addClassTemporarily(el, 'start_element', 800);
+
+	ifElemHasClassDeleteClass(elItem, 'item__num-active-success');
+	ifElemHasClassDeleteClass(elItem, 'item__num-active-unsuccess');
+}
+
+var reset = function (el) {
+
 }
 
 function timer (start) {
-	var current_iteration = start || 0;
+	var current_iteration = current_iteration || start;
 	return function (f) {
 		var callback = f || function () {};
 		if (current_iteration === 0) {
 			callback();
-			current_iteration = 30;
+			current_iteration = start;
 		}
 		return current_iteration--;
 	}
 }
 
+var addClassTemporarily = function (el, className, time) {
+
+	for (var i = 0; i < el.length; i++) {
+		el[i].classList.add(className);
+	}
+
+	setTimeout(function () {
+		for (var i = 0; i < el.length; i++) {
+			el[i].classList.remove(className);
+		}
+	}, time);
+
+}
+
 function playGame () {
+
 	var score = 0,
 			currentNum = 1,
 			el = document.getElementsByClassName('item__num'),
 			scoreEl = document.querySelector('.info_panel__container .score'),
 			timerEl = document.querySelector('.info_panel__container .timer');
 
-	var timer_iteration = timer(30);
+	var timer_iteration = timer(45);
 
 	var successClick = function () {
-		this.classList.toggle('item__num-active');
+		this.classList.add('item__num-active-success');
 		currentNum++;
-		score += Math.round(100 + Math.random() * (150 - 100));
-
-	}
+		score += 100;
+	};
 
 	setInterval (function () {
 		var iteration = timer_iteration(function () {
-		//
-		//
-		//
-		// ОТОБРОЗИТЬ МОДАЛЬНОЕ ОКНО
-		// С РЕЗУЛЬТАТАМИ
-		// И ПРЕДЛОГОМ ПРОДОЛЖИТЬ
-		//
-		//
-		//
 			score = 0;
 			currentNum = 1;
 			scoreEl.innerHTML = 'Score: ' + score;
-			ifElemHasClassDeleteClass(el);
+			render();
 		});
 		timerEl.innerHTML = 'Timer: ' + iteration + 's';
 	}, 1000);
@@ -115,18 +129,22 @@ function playGame () {
 			if (+this.textContent === currentNum) {
 				successClick.call(this);
 
-			} else if (!this.classList.contains('item__num-active')) { // не туда нажал, сброс
+			} else if (!this.classList.contains('item__num-active-success')) { // не туда нажал, сброс
+				this.classList.add('item__num-active-unsuccess');
+
+				addClassTemporarily(el, 'hide_element', 800);
+
 				render();
-				ifElemHasClassDeleteClass(el);
+
 				currentNum = 1;
 				if (score >= 100) {
-					score -= Math.round(80 + Math.random() * (100 - 80));
+					score -= 100;
 				} else {
 					score = 0;
 				}
 
 			}
-			if (currentNum > el.length) {
+			if (currentNum - 1 >= el.length) {
 				render();
 				currentNum = 1;
 			}
@@ -143,9 +161,13 @@ buttonStart.onclick = function () {
 	var pageContainer = document.querySelector('.container'),
 			modalContainer = document.querySelector('.container__modal');
 
-	modalContainer.classList.add('hide');
-	pageContainer.classList.remove('modal-effect');
+	modalContainer.classList.add('modal_hide');
+	pageContainer.classList.add('modal-effect');
 
-	render();
-	playGame();
-}
+	function startGame() {
+		render();
+		playGame();
+		pageContainer.removeEventListener('transitionend', startGame);
+	}
+	pageContainer.addEventListener('transitionend', startGame);
+};
