@@ -38,7 +38,6 @@ body, html {
   position: relative; }
 
 .modal-effect {
-  background: #999;
   opacity: .3; }
 
 .select_size_container {
@@ -138,7 +137,6 @@ body, html {
   box-shadow: 2px 2px 12px 0px rgba(71, 71, 71, 0.2); }
 
 .container__modal {
-  background: #fff;
   max-width: 550px;
   width: 100%;
   position: absolute;
@@ -149,8 +147,10 @@ body, html {
   margin: 0 auto; }
 
 .modal__inner {
+  background: #fff;
   text-align: center;
-  padding: 60px 40px; }
+  padding: 60px 40px;
+  box-shadow: 2px 2px 18px 4px rgba(175, 175, 175, 0.4); }
 
 .modal__inner__head {
   color: #333;

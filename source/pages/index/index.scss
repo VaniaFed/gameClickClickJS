@@ -168,7 +168,6 @@ body, html {
 }
 
 .container__modal {
-	background: #fff;
 	max-width: 550px;
 	width: 100%;
 	position: absolute;
@@ -180,8 +179,10 @@ body, html {
 }
 
 .modal__inner {
+	background: #fff;
 	text-align: center;
 	padding: 60px 40px;
+	box-shadow: 2px 2px 18px 4px rgba(175, 175, 175, .4);
 }
 
 .modal__inner__head {
