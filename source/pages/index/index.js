@@ -62,18 +62,34 @@ function render () {
 		elItem[i].innerHTML = arr[i];
 	}
 
-	addClassTemporarily(el, 'start_element', 800);
-
-	ifElemHasClassDeleteClass(elItem, 'item__num-active-success');
-	ifElemHasClassDeleteClass(elItem, 'item__num-active-unsuccess');
+	addClassTemporarily(el, 'start_element', 1000);
 }
 
 var reset = function (el) {
+	var arr = new Array;
 
+	for (var i = 0; i < el.length; i++)
+	{
+		arr[i] = i + 1;
+	}
+	
+	blend(arr);
+
+	addClassTemporarily(el, 'hide_element', 800, function () {
+		ifElemHasClassDeleteClass(el, 'item__num-active-success');
+		ifElemHasClassDeleteClass(el, 'item__num-active-unsuccess');
+
+		for (var i = 0; i < el.length; i++) {
+			el[i].innerHTML = arr[i];
+		}
+
+		addClassTemporarily(el, 'start_element', 1000);
+	});
 }
 
 function timer (start) {
 	var current_iteration = current_iteration || start;
+
 	return function (f) {
 		var callback = f || function () {};
 		if (current_iteration === 0) {
@@ -84,18 +100,19 @@ function timer (start) {
 	}
 }
 
-var addClassTemporarily = function (el, className, time) {
+var addClassTemporarily = function (el, className, time, f) {
+	var callback = f || function () {};
 
 	for (var i = 0; i < el.length; i++) {
 		el[i].classList.add(className);
 	}
 
 	setTimeout(function () {
+		callback();
 		for (var i = 0; i < el.length; i++) {
 			el[i].classList.remove(className);
 		}
 	}, time);
-
 }
 
 function playGame () {
@@ -119,7 +136,7 @@ function playGame () {
 			score = 0;
 			currentNum = 1;
 			scoreEl.innerHTML = 'Score: ' + score;
-			render();
+			reset(el);
 		});
 		timerEl.innerHTML = 'Timer: ' + iteration + 's';
 	}, 1000);
@@ -134,7 +151,7 @@ function playGame () {
 
 				addClassTemporarily(el, 'hide_element', 800);
 
-				render();
+				reset(el);
 
 				currentNum = 1;
 				if (score >= 100) {
@@ -145,7 +162,7 @@ function playGame () {
 
 			}
 			if (currentNum - 1 >= el.length) {
-				render();
+				reset(el);
 				currentNum = 1;
 			}
 			scoreEl.innerHTML = 'Score: ' + score;
