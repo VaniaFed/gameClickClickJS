@@ -24,6 +24,10 @@ input {
 	clear: both;
 }
 
+.click_off {
+	pointer-events: none;
+}
+
 .hide {
 	display: none;
 }
