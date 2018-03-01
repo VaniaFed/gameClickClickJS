@@ -8,11 +8,16 @@ html
         
     body
       .wrapper
-        .container__modal
+        .container__modal.container__modal__end.modal_hide
+          .modal__inner
+            h1.modal__inner__head Время истекло
+            p.modal__inner__text#result_game Ваш результат:
+            input.modal__inner__button#restart_game(type="button" value="Начать заново")
+            
+        .container__modal.container__modal__start
           .modal__inner
             h1.modal__inner__head Клик-клик
             p.modal__inner__text Суть игры заключается в последовательном нажатии на цифры, и так до конца, пока вы не дойдете до последней цифры.
-              
             input.modal__inner__button#start_game(type="button" value="Начать игру")
         .container
           .select_size_container.select_size_container-active
@@ -24,7 +29,7 @@ html
                 .btn_open_menu.white_bg
           .container__work
             .info_panel__container
-              .timer Timer: 30s
+              .timer Timer: 0
               .score Score: 0
             .container__work__inner
               .item__row

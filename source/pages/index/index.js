@@ -3,7 +3,6 @@ import "./normalize.css";
 import "./index.scss";
 'use strict';
 
-
 var sizeInfoContainer = function (elem) {
 	var container = document.querySelector('.container__work__inner');
 	elem.style.width = container.offsetWidth + 'px';
@@ -40,9 +39,15 @@ var blend = function (arr) {
 
 // Удалить класс, если он есть у элемента
 var ifElemHasClassDeleteClass = function (elClass, nameClass) {
-	for (var i = 0; i < elClass.length; i++) {
-		if (elClass[i].classList.contains(nameClass)) {
-			elClass[i].classList.remove(nameClass);
+	if (Boolean(elClass[1])) {
+		for (var i = 0; i < elClass.length; i++) {
+			if (elClass[i].classList.contains(nameClass)) {
+				elClass[i].classList.remove(nameClass);
+			}
+		}
+	} else {
+		if (elClass.classList.contains(nameClass)) {
+			elClass.classList.remove(nameClass);
 		}
 	}
 }
@@ -117,7 +122,7 @@ var addClassTemporarily = function (el, className, time, f) {
 	}, time);
 }
 
-var playGame = function () {
+var playGame = function (time) {
 
 	var score = 0,
 			currentNum = 1,
@@ -125,20 +130,51 @@ var playGame = function () {
 			scoreEl = document.querySelector('.info_panel__container .score'),
 			timerEl = document.querySelector('.info_panel__container .timer');
 
-	var timer_iteration = timer(45);
+	var gameOver = function (score, el) {
+		var modalEndContainer =  document.querySelector('.container__modal__end'),
+				buttonRestart = document.querySelector('#restart_game'),
+				textResult = document.querySelector('#result_game'),
+				container = document.querySelector('.container');
 
+		textResult.innerHTML = 'Ваш результат: ' + score;
+
+		ifElemHasClassDeleteClass(modalEndContainer, 'modal_hide');
+
+		container.classList.remove('modal-effect');
+
+		score = 0;
+		currentNum = 1;
+		scoreEl.innerHTML = 'Score: ' + score;
+
+		for (var i = 0; i < el.length; i++) {
+			el[i].classList.add('click_off');
+		}
+
+		document.querySelector('#restart_game').addEventListener('click', function () {
+			render();
+			playGame(time);
+			modalEndContainer.classList.add('modal_hide');
+			container.classList.add('modal-effect');
+			reset(el);
+
+			for (var i = 0; i < el.length; i++) {
+				el[i].classList.remove('click_off');
+			}
+
+		});
+	}
+
+	var timer_iteration = timer(time);
 	var successClick = function () {
 		this.classList.add('item__num-active-success');
 		currentNum++;
 		score += 100;
 	};
 
-	setInterval (function () {
+	var counter = setInterval (function () {
 		var iteration = timer_iteration(function () {
-			score = 0;
-			currentNum = 1;
-			scoreEl.innerHTML = 'Score: ' + score;
-			reset(el);
+			clearInterval(counter);
+			gameOver(score, el);
 		});
 		timerEl.innerHTML = 'Timer: ' + iteration + 's';
 	}, 1000);
@@ -178,21 +214,20 @@ var playGame = function () {
 open_menu();
 
 var buttonStart = document.querySelector('#start_game');
+var time = 45;
 
 buttonStart.addEventListener('click', function () {
 	var pageContainer = document.querySelector('.container'),
-			modalContainer = document.querySelector('.container__modal');
+			modalStartContainer = document.querySelector('.container__modal__start');
 
 	function startGame() {
 		render();
-		playGame();
+		playGame(time);
 		pageContainer.removeEventListener('transitionend', startGame);
 	}
 
-	modalContainer.classList.add('modal_hide');
+	modalStartContainer.classList.add('modal_hide');
 	pageContainer.classList.add('modal-effect');
-
-
 
 	pageContainer.addEventListener('transitionend', startGame);
 });

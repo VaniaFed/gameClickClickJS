@@ -8,7 +8,14 @@
   <link href="./css/index.css" rel="stylesheet"></head>
   <body>
     <div class="wrapper">
-      <div class="container__modal">
+      <div class="container__modal container__modal__end modal_hide">
+        <div class="modal__inner">
+          <h1 class="modal__inner__head">Время истекло</h1>
+          <p class="modal__inner__text" id="result_game">Ваш результат:</p>
+          <input class="modal__inner__button" id="restart_game" type="button" value="Начать заново">
+        </div>
+      </div>
+      <div class="container__modal container__modal__start">
         <div class="modal__inner">
           <h1 class="modal__inner__head">Клик-клик</h1>
           <p class="modal__inner__text">Суть игры заключается в последовательном нажатии на цифры, и так до конца, пока вы не дойдете до последней цифры.</p>
@@ -25,7 +32,7 @@
         </div>
         <div class="container__work">
           <div class="info_panel__container">
-            <div class="timer">Timer: 30s</div>
+            <div class="timer">Timer: 0</div>
             <div class="score">Score: 0</div>
           </div>
           <div class="container__work__inner">
