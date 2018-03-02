@@ -90,6 +90,12 @@ body, html {
 	width: 100%;
 	font: 16px/1.5 'roboto', 'arial', 'sans-serif';
 	background: #f9f9f9;
+	margin: 0;
+	padding: 0;
+}
+
+.wrapper {
+	background: url('img/memphis-colorful.png');
 }
 
 .container {
@@ -100,13 +106,18 @@ body, html {
 	box-shadow: 0 0 16px 2px rgba(75, 75, 75, .1);
 	height: 100vh;
 	position: relative;
-	transition: all .8s;
-	opacity: .1;
 }
 
-.modal-effect {
-	opacity: 1;
-	transition: all .8s;
+.modal_bg {
+	background: #333;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: .4;
+	z-index: 1;
+	transition: all .9s;
 }
 
 .select_size_container {
@@ -114,7 +125,17 @@ body, html {
 	height: 80px;
 	position: relative;
 	width: 100%;
+	background: $accent;
 }
+.game__name {
+	color: #fff;
+	line-height: 80px;
+	font-size: 28px;
+	padding-left: 45px;
+	text-shadow: 1px 3px 8px rgba(75,75,75,.3);
+	font-weight: 400;
+}
+
 .accent_bg {
 	background: $accent;
 }
@@ -250,8 +271,9 @@ body, html {
 	box-shadow: 2px 2px 18px 4px rgba(175, 175, 175, .4);
 }
 
-.container__modal__end {
-	//transform: scale(0);
+.container__modal__end__db {
+	opacity: 0;
+	transition: all .4s;
 }
 
 .modal_hide {

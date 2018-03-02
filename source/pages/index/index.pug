@@ -4,11 +4,12 @@ html
         meta(charset = 'utf-8')
         link(href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,400,500,700,900" rel="stylesheet")
         meta(name='viewport', content="initial-scale=1.0, width=device-width")
-        title videoGAMEs OVER
+        title Игра клик-клик
         
     body
       .wrapper
-        .container__modal.container__modal__end.modal_hide
+        .modal_bg
+        .container__modal.container__modal__end.modal_hide.container__modal__end__db
           .modal__inner
             h1.modal__inner__head Время истекло
             p.modal__inner__text#result_game Ваш результат:
@@ -20,13 +21,8 @@ html
             p.modal__inner__text Суть игры заключается в последовательном нажатии на цифры, и так до конца, пока вы не дойдете до последней цифры.
             input.modal__inner__button#start_game(type="button" value="Начать игру")
         .container
-          .select_size_container.select_size_container-active
-            input.input_count.input_count_lines.hide(type='text' placeholder="Колочество строк")
-            input.input_count.input_count_columns.hide(type='text' placeholder="Колочество колонок")
-            input.hide(type='button' value='Сгенерировать')
-            .open_menu_container
-              a.open_menu(href='#')
-                .btn_open_menu.white_bg
+          .select_size_container
+            p.game__name Клик-клик
           .container__work
             .info_panel__container
               .timer Timer: 0

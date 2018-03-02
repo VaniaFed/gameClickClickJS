@@ -11,22 +11,6 @@ var sizeInfoContainer = function (elem) {
 var el = document.querySelector('.info_panel__container');
 sizeInfoContainer(el);
 
-var open_menu = function () {
-	var elLinkOpen = document.querySelector('.open_menu'),
-			elContainer = document.querySelector('.select_size_container'),
-			elOpenMenu = document.querySelector('.btn_open_menu'),
-			allInputs = document.querySelectorAll('.select_size_container input');
-
-	elLinkOpen.addEventListener('click', function() {
-		for (var i = 0; i < allInputs.length; i++) {
-			allInputs[i].classList.toggle('hide');
-		}
-
-		elContainer.classList.toggle('accent_bg');
-		elOpenMenu.classList.toggle('white_bg');
-	});
-}
-
 //Перемешать элементы массива
 var blend = function (arr) {
 	for (var i = arr.length - 1; i >= 0; i--) {
@@ -122,6 +106,11 @@ var addClassTemporarily = function (el, className, time, f) {
 	}, time);
 }
 
+var changeState = function (el, state, func) {
+	el.style.display = state;
+	el.removeEventListener('transitioned', func);
+}
+
 var playGame = function (time) {
 
 	var score = 0,
@@ -132,6 +121,7 @@ var playGame = function (time) {
 
 	var gameOver = function (score, el) {
 		var modalEndContainer =  document.querySelector('.container__modal__end'),
+				modalBg = document.querySelector('.modal_bg'),
 				buttonRestart = document.querySelector('#restart_game'),
 				textResult = document.querySelector('#result_game'),
 				container = document.querySelector('.container');
@@ -140,7 +130,17 @@ var playGame = function (time) {
 
 		ifElemHasClassDeleteClass(modalEndContainer, 'modal_hide');
 
-		container.classList.remove('modal-effect');
+		modalBg.style.display = 'block';
+		modalBg.style.opacity = .3;
+
+		var modalHide = function () {
+			modalEndContainer.classList.toggle('container__modal__end__db');
+			modalEndContainer.removeEventListener('transitionend', modalHide);
+		}
+
+		modalEndContainer.style.opacity = 1;
+		modalEndContainer.addEventListener('transitionend', modalHide);
+
 
 		score = 0;
 		currentNum = 1;
@@ -154,12 +154,22 @@ var playGame = function (time) {
 			render();
 			playGame(time);
 			modalEndContainer.classList.add('modal_hide');
-			container.classList.add('modal-effect');
+			//modalEndContainer.classList.toggle('container__modal__end__db');
 			reset(el);
+			score = 0;
+			currentNum = 1;
 
 			for (var i = 0; i < el.length; i++) {
 				el[i].classList.remove('click_off');
 			}
+
+			var currentState = function () {
+				changeState(modalBg, 'none', this);
+			}
+
+			modalBg.style.opacity = 0;
+
+			modalBg.addEventListener('transitionend', currentState);
 
 		});
 	}
@@ -177,7 +187,7 @@ var playGame = function (time) {
 			gameOver(score, el);
 		});
 		timerEl.innerHTML = 'Timer: ' + iteration + 's';
-	}, 1000);
+	}, 100);
 
 	var processing = function () {
 		if (+this.textContent === currentNum) {
@@ -211,23 +221,28 @@ var playGame = function (time) {
 	}
 }
 
-open_menu();
-
 var buttonStart = document.querySelector('#start_game');
 var time = 45;
 
 buttonStart.addEventListener('click', function () {
-	var pageContainer = document.querySelector('.container'),
+	var modalBg = document.querySelector('.modal_bg'),
 			modalStartContainer = document.querySelector('.container__modal__start');
 
 	function startGame() {
 		render();
 		playGame(time);
-		pageContainer.removeEventListener('transitionend', startGame);
+
+		var currentState = function () {
+			changeState(modalBg, 'none', currentState);
+		}
+
+		modalBg.style.opacity = 0;
+
+		modalBg.addEventListener('transitionend', currentState);
+		modalStartContainer.removeEventListener('transitionend', startGame);
 	}
 
 	modalStartContainer.classList.add('modal_hide');
-	pageContainer.classList.add('modal-effect');
 
-	pageContainer.addEventListener('transitionend', startGame);
+	modalStartContainer.addEventListener('transitionend', startGame);
 });
