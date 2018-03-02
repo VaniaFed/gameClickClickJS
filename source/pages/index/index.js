@@ -129,6 +129,7 @@ var playGame = function (time) {
 		textResult.innerHTML = 'Ваш результат: ' + score;
 
 		modalBg.style.display = 'block';
+		modalBg.style.opacity = .4;
 		ifElemHasClassDeleteClass(modalEndContainer, 'modal_hide');
 
 		var modalHide = function () {
@@ -186,7 +187,7 @@ var playGame = function (time) {
 			gameOver(score, el);
 		});
 		timerEl.innerHTML = 'Timer: ' + iteration + 's';
-	}, 100);
+	}, 1000);
 
 	var processing = function () {
 		if (+this.textContent === currentNum) {
