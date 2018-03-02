@@ -128,10 +128,8 @@ var playGame = function (time) {
 
 		textResult.innerHTML = 'Ваш результат: ' + score;
 
-		ifElemHasClassDeleteClass(modalEndContainer, 'modal_hide');
-
 		modalBg.style.display = 'block';
-		modalBg.style.opacity = .3;
+		ifElemHasClassDeleteClass(modalEndContainer, 'modal_hide');
 
 		var modalHide = function () {
 			modalEndContainer.classList.toggle('container__modal__end__db');
@@ -154,7 +152,8 @@ var playGame = function (time) {
 			render();
 			playGame(time);
 			modalEndContainer.classList.add('modal_hide');
-			//modalEndContainer.classList.toggle('container__modal__end__db');
+			modalBg.style.display = 'none';
+			modalEndContainer.classList.toggle('container__modal__end__db');
 			reset(el);
 			score = 0;
 			currentNum = 1;
