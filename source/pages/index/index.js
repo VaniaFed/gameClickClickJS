@@ -3,246 +3,245 @@ import "./normalize.css";
 import "./index.scss";
 'use strict';
 
-var sizeInfoContainer = function (elem) {
-	var container = document.querySelector('.container__work__inner');
-	elem.style.width = container.offsetWidth + 'px';
-}
+window.onload = function() {
 
-var el = document.querySelector('.info_panel__container');
-sizeInfoContainer(el);
+    var hideElement = function (el) {
+        el.classList.add('hidden');
+    };
 
-//Перемешать элементы массива
-var blend = function (arr) {
-	for (var i = arr.length - 1; i >= 0; i--) {
-		var rand = Math.round(0 + Math.random() * (arr.length - 1));
-		var temp = arr[rand];
-		arr[rand] = arr[i];
-		arr[i] = temp;
-	}
-}
+    var showElement = function (el) {
+        el.classList.remove('hidden');
+    };
 
-// Удалить класс, если он есть у элемента
-var ifElemHasClassDeleteClass = function (elClass, nameClass) {
-	if (Boolean(elClass[1])) {
-		for (var i = 0; i < elClass.length; i++) {
-			if (elClass[i].classList.contains(nameClass)) {
-				elClass[i].classList.remove(nameClass);
-			}
-		}
-	} else {
-		if (elClass.classList.contains(nameClass)) {
-			elClass.classList.remove(nameClass);
-		}
-	}
-}
+	var sizeInfoContainer = function (elem) {
+        var container = document.querySelector('.container__work__inner');
+        elem.style.width = container.offsetWidth + 'px';
+    };
 
-// Отрисовать элементы
-var render = function () {
-	var elItem = document.getElementsByClassName('item__num');
-	var arr = new Array;
+    var el = document.querySelector('.info_panel__container');
+    sizeInfoContainer(el);
 
-	for (var i = 0; i < elItem.length; i++)
-	{
-		arr[i] = i + 1;
-	}
+    //Перемешать элементы массива
+    var blend = function (arr) {
+        for (var i = arr.length - 1; i >= 0; i--) {
+            var rand = Math.round(0 + Math.random() * (arr.length - 1));
+            var temp = arr[rand];
+            arr[rand] = arr[i];
+            arr[i] = temp;
+        }
+    }
 
-	blend(arr);
+    // Удалить класс, если он есть у элемента
+    var ifElemHasClassDeleteClass = function (elClass, nameClass) {
+        if (Boolean(elClass[1])) {
+            for (var i = 0; i < elClass.length; i++) {
+                if (elClass[i].classList.contains(nameClass)) {
+                    elClass[i].classList.remove(nameClass);
+                }
+            }
+        } else {
+            if (elClass.classList.contains(nameClass)) {
+                elClass.classList.remove(nameClass);
+            }
+        }
+    }
 
-	for (var i = 0; i < elItem.length; i++) {
-		elItem[i].innerHTML = arr[i];
-	}
+    // Отрисовать элементы
+    var render = function () {
+        var elItem = document.getElementsByClassName('item__num');
+        var arr = new Array;
 
-	addClassTemporarily(el, 'start_element', 1000);
-}
+        for (var i = 0; i < elItem.length; i++)
+        {
+            arr[i] = i + 1;
+        }
 
-var reset = function (el) {
-	var arr = new Array;
+        blend(arr);
 
-	for (var i = 0; i < el.length; i++)
-	{
-		arr[i] = i + 1;
-	}
+        for (var i = 0; i < elItem.length; i++) {
+            elItem[i].innerHTML = arr[i];
+        }
 
-	blend(arr);
-	addClassTemporarily(el, 'click_off', 1000);
-	addClassTemporarily(el, 'hide_element', 800, function () {
+        addClassTemporarily(el, 'start_element', 1000);
+    };
 
-		ifElemHasClassDeleteClass(el, 'item__num-active-success');
-		ifElemHasClassDeleteClass(el, 'item__num-active-unsuccess');
+    var reset = function (el) {
+        var arr = new Array;
 
-		for (var i = 0; i < el.length; i++) {
-			el[i].innerHTML = arr[i];
-		}
+        for (var i = 0; i < el.length; i++)
+        {
+            arr[i] = i + 1;
+        }
 
-		addClassTemporarily(el, 'start_element', 1000);
-	});
-}
+        blend(arr);
+        addClassTemporarily(el, 'click_off', 1000);
+        addClassTemporarily(el, 'hide_element', 800, function () {
 
-var timer = function (start) {
-	var current_iteration = current_iteration || start;
+            ifElemHasClassDeleteClass(el, 'item__num-active-success');
+            ifElemHasClassDeleteClass(el, 'item__num-active-unsuccess');
 
-	return function (f) {
-		var callback = f || function () {};
-		if (current_iteration === 0) {
-			callback();
-			current_iteration = start;
-		}
-		return current_iteration--;
-	}
-}
+            for (var i = 0; i < el.length; i++) {
+                el[i].innerHTML = arr[i];
+            }
 
-var addClassTemporarily = function (el, className, time, f) {
-	var callback = f || function () {};
+            addClassTemporarily(el, 'start_element', 1000);
+        });
+    };
 
-	for (var i = 0; i < el.length; i++) {
-		el[i].classList.add(className);
-	}
+     var timer = function (start = 45) {
+        var currentIteration = start;
+        return function (f) {
+            return --currentIteration;
+        }
+     };
 
-	setTimeout(function () {
-		callback();
-		for (var i = 0; i < el.length; i++) {
-			el[i].classList.remove(className);
-		}
-	}, time);
-}
+    // var timer = function (start) {
+    //     var current_iteration = current_iteration || start;
+    //
+    //     return function (f) {
+    //         var callback = f || function () {};
+    //         if (current_iteration === 0) {
+    //             callback();
+    //             current_iteration = start;
+    //         }
+    //         return current_iteration--;
+    //     }
+    // }
 
-var changeState = function (el, state, func) {
-	el.style.display = state;
-	el.removeEventListener('transitioned', func);
-}
+    var addClassTemporarily = function (el, className, time, f) {
+        var callback = f || function () {};
 
-var playGame = function (time) {
+        for (var i = 0; i < el.length; i++) {
+            el[i].classList.add(className);
+        }
 
-	var score = 0,
-			currentNum = 1,
-			el = document.getElementsByClassName('item__num'),
-			scoreEl = document.querySelector('.info_panel__container .score'),
-			timerEl = document.querySelector('.info_panel__container .timer');
+        setTimeout(function () {
+            callback();
+            for (var i = 0; i < el.length; i++) {
+                el[i].classList.remove(className);
+            }
+        }, time);
+    }
 
-	var gameOver = function (score, el) {
-		var modalEndContainer =  document.querySelector('.container__modal__end'),
-				modalBg = document.querySelector('.modal_bg'),
-				buttonRestart = document.querySelector('#restart_game'),
-				textResult = document.querySelector('#result_game'),
-				container = document.querySelector('.container');
+    var changeState = function (el, state, func) {
+        el.style.display = state;
+        el.removeEventListener('transitioned', func);
+    };
 
-		textResult.innerHTML = 'Ваш результат: ' + score;
+    var playGame = function (time) {
 
-		modalBg.style.display = 'block';
-		modalBg.style.opacity = .4;
-		ifElemHasClassDeleteClass(modalEndContainer, 'modal_hide');
+        var score = 0,
+            currentNum = 1,
+            el = document.getElementsByClassName('item__num'),
+            scoreEl = document.querySelector('.info_panel__container .score'),
+            timerEl = document.querySelector('.info_panel__container .timer');
 
-		var modalHide = function () {
-			modalEndContainer.classList.toggle('container__modal__end__db');
-			modalEndContainer.removeEventListener('transitionend', modalHide);
-		}
+        var gameOver = function () {
+            var modalEnd=  document.querySelector('.container__modal__end'),
+                modalBg = document.querySelector('.modal_bg'),
+                textResult = document.querySelector('#result_game');
 
-		modalEndContainer.style.opacity = 1;
-		modalEndContainer.addEventListener('transitionend', modalHide);
+            textResult.innerHTML = 'Ваш результат: ' + score;
+            timerEl.innerHTML = 'Timer: ' + 45;
 
+            showElement(modalEnd);
+            showElement(modalBg);
+            score = 0;
+            currentNum = 1;
+            scoreEl.innerHTML = 'Score: ' + score;
 
-		score = 0;
-		currentNum = 1;
-		scoreEl.innerHTML = 'Score: ' + score;
+            for (var i = 0; i < el.length; i++) {
+                el[i].classList.add('click_off');
+            }
 
-		for (var i = 0; i < el.length; i++) {
-			el[i].classList.add('click_off');
-		}
+            document.querySelector('#restart_game').addEventListener('click', function () {
+                render();
+                playGame(time);
+                hideElement(modalEnd);
+                hideElement(modalBg);
 
-		document.querySelector('#restart_game').addEventListener('click', function () {
-			render();
-			playGame(time);
-			modalEndContainer.classList.add('modal_hide');
-			modalBg.style.display = 'none';
-			modalEndContainer.classList.toggle('container__modal__end__db');
-			reset(el);
-			score = 0;
-			currentNum = 1;
+                reset(el);
+                score = 0;
+                currentNum = 1;
 
-			for (var i = 0; i < el.length; i++) {
-				el[i].classList.remove('click_off');
-			}
+                for (var i = 0; i < el.length; i++) {
+                    el[i].classList.remove('click_off');
+                }
+            });
+        };
 
-			var currentState = function () {
-				changeState(modalBg, 'none', this);
-			}
+        var successClick = function () {
+            this.classList.add('item__num-active-success');
+            currentNum++;
+            score += 100;
+        };
 
-			modalBg.style.opacity = 0;
+        var timer_iteration = timer(time);
+        var currentTime,
+            counter = timer(time);
 
-			modalBg.addEventListener('transitionend', currentState);
+        var timeInterval = setInterval(function () {
+            currentTime = counter();
+            timerEl.innerHTML = 'Timer: ' + currentTime + 's';
+            if (currentTime <= 0) {
+                clearInterval(timeInterval);
+                counter = timer(time);
+                gameOver();
+            }
+        }, 1000);
 
-		});
-	}
+        var processing = function () {
+            if (+this.textContent === currentNum) {
+                successClick.call(this);
 
-	var timer_iteration = timer(time);
-	var successClick = function () {
-		this.classList.add('item__num-active-success');
-		currentNum++;
-		score += 100;
-	};
+            } else if (!this.classList.contains('item__num-active-success')) { // не туда нажал, сброс
+                this.classList.add('item__num-active-unsuccess');
 
-	var counter = setInterval (function () {
-		var iteration = timer_iteration(function () {
-			clearInterval(counter);
-			gameOver(score, el);
-		});
-		timerEl.innerHTML = 'Timer: ' + iteration + 's';
-	}, 1000);
+                addClassTemporarily(el, 'hide_element', 800);
 
-	var processing = function () {
-		if (+this.textContent === currentNum) {
-			successClick.call(this);
+                reset(el);
 
-		} else if (!this.classList.contains('item__num-active-success')) { // не туда нажал, сброс
-			this.classList.add('item__num-active-unsuccess');
+                currentNum = 1;
+                if (score >= 100) {
+                    score -= 100;
+                } else {
+                    score = 0;
+                }
 
-			addClassTemporarily(el, 'hide_element', 800);
+            }
+            if (currentNum - 1 >= el.length) {
+                reset(el);
+                currentNum = 1;
+            }
+            scoreEl.innerHTML = 'Score: ' + score;
+        }
 
-			reset(el);
+        for (var i = 0; i < el.length; i++) {
+            var bound = processing.bind(el[i]);
+            el[i].addEventListener('click', bound);
+        }
+    };
 
-			currentNum = 1;
-			if (score >= 100) {
-				score -= 100;
-			} else {
-				score = 0;
-			}
+    var buttonStart = document.querySelector('#start_game');
+    var time = 45;
 
-		}
-		if (currentNum - 1 >= el.length) {
-			reset(el);
-			currentNum = 1;
-		}
-		scoreEl.innerHTML = 'Score: ' + score;
-	}
+    buttonStart.addEventListener('click', function () {
+        var modalBg = document.querySelector('.modal_bg'),
+            modalStart= document.querySelector('.container__modal__start');
 
-	for (var i = 0; i < el.length; i++) {
-		var bound = processing.bind(el[i]);
-		el[i].addEventListener('click', bound);
-	}
-}
+        function startGame() {
+            document.querySelector('.timer').innerHTML = 'Timer: ' + time + 's';
+            render();
+            playGame(time);
 
-var buttonStart = document.querySelector('#start_game');
-var time = 45;
+            var currentState = function () {
+                changeState(modalBg, 'none', currentState);
+            };
+        }
 
-buttonStart.addEventListener('click', function () {
-	var modalBg = document.querySelector('.modal_bg'),
-			modalStartContainer = document.querySelector('.container__modal__start');
+        hideElement(modalStart);
+        hideElement(modalBg);
+        startGame();
+    });
+};
 
-	function startGame() {
-		render();
-		playGame(time);
-
-		var currentState = function () {
-			changeState(modalBg, 'none', currentState);
-		}
-
-		modalBg.style.opacity = 0;
-
-		modalBg.addEventListener('transitionend', currentState);
-		modalStartContainer.removeEventListener('transitionend', startGame);
-	}
-
-	modalStartContainer.classList.add('modal_hide');
-
-	modalStartContainer.addEventListener('transitionend', startGame);
-});

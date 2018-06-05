@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,400,500,700,900" rel="stylesheet">
     <meta name="viewport" content="initial-scale=1.0, width=device-width">
-    <title>videoGAMEs OVER</title>
+    <title>Игра клик-клик</title>
   <link href="./css/index.css" rel="stylesheet"></head>
   <body>
     <div class="wrapper">
-      <div class="container__modal container__modal__end modal_hide">
+      <div class="modal_bg"></div>
+      <div class="container__modal container__modal__end hidden">
         <div class="modal__inner">
           <h1 class="modal__inner__head">Время истекло</h1>
           <p class="modal__inner__text" id="result_game">Ваш результат:</p>
@@ -23,12 +24,8 @@
         </div>
       </div>
       <div class="container">
-        <div class="select_size_container select_size_container-active">
-          <input class="input_count input_count_lines hide" type="text" placeholder="Колочество строк">
-          <input class="input_count input_count_columns hide" type="text" placeholder="Колочество колонок">
-          <input class="hide" type="button" value="Сгенерировать">
-          <div class="open_menu_container"><a class="open_menu" href="#">
-              <div class="btn_open_menu white_bg"></div></a></div>
+        <div class="select_size_container">
+          <p class="game__name">Клик-клик</p>
         </div>
         <div class="container__work">
           <div class="info_panel__container">

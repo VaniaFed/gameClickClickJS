@@ -457,22 +457,6 @@ input {
 .start_element {
   animation: start_element .8s forwards; }
 
-@keyframes modal_show {
-  from {
-    transform: scale(0); }
-  70% {
-    transform: scale(1.1); }
-  to {
-    transform: scale(1); } }
-
-@keyframes modal_hide {
-  from {
-    transform: scale(1); }
-  70% {
-    transform: scale(1.1); }
-  to {
-    transform: scale(0); } }
-
 @keyframes hide_element {
   from {
     transform: scale(1); }
@@ -491,7 +475,12 @@ body, html {
   height: 100%;
   width: 100%;
   font: 16px/1.5 'roboto', 'arial', 'sans-serif';
-  background: #f9f9f9; }
+  background: #f9f9f9;
+  margin: 0;
+  padding: 0; }
+
+.wrapper {
+  background: url(../images/memphis-colorful.png); }
 
 .container {
   max-width: 1140px;
@@ -500,19 +489,33 @@ body, html {
   background: #fff;
   box-shadow: 0 0 16px 2px rgba(75, 75, 75, 0.1);
   height: 100vh;
-  position: relative;
-  transition: all .8s;
-  opacity: .1; }
+  position: relative; }
 
-.modal-effect {
-  opacity: 1;
-  transition: all .8s; }
+.modal_bg {
+  background: #333;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: .4;
+  z-index: 1;
+  transition: all .9s; }
 
 .select_size_container {
   background: #fff;
   height: 80px;
   position: relative;
-  width: 100%; }
+  width: 100%;
+  background: #ffc61c; }
+
+.game__name {
+  color: #fff;
+  line-height: 80px;
+  font-size: 28px;
+  padding-left: 45px;
+  text-shadow: 1px 3px 8px rgba(75, 75, 75, 0.3);
+  font-weight: 400; }
 
 .accent_bg {
   background: #ffc61c; }
@@ -556,7 +559,7 @@ body, html {
   background: #000; }
 
 .container__work {
-  margin-top: 200px;
+  transform: translateY(50%);
   text-align: center; }
 
 .container__work__inner {
@@ -626,12 +629,6 @@ body, html {
   padding: 60px 40px;
   box-shadow: 2px 2px 18px 4px rgba(175, 175, 175, 0.4); }
 
-.modal_hide {
-  animation: modal_hide .8s forwards; }
-
-.modal_show {
-  animation: modal_show .8s forwards; }
-
 .modal__inner__head {
   color: #333;
   font-size: 30px;
@@ -659,3 +656,7 @@ body, html {
 .modal__inner__button:hover {
   background: #ffc61c;
   color: #fff; }
+
+.hidden {
+  opacity: 0;
+  display: none; }

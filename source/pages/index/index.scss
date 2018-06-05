@@ -40,30 +40,6 @@ input {
 	animation: start_element .8s forwards;
 }
 
-@keyframes modal_show {
-	from {
-		transform: scale(0);
-	}
-	70% {
-		transform: scale(1.1);
-	}
-	to {
-		transform: scale(1);
-	}
-}
-
-@keyframes modal_hide {
-	from {
-		transform: scale(1);
-	}
-	70% {
-		transform: scale(1.1);
-	}
-	to {
-		transform: scale(0);
-	}
-}
-
 @keyframes hide_element {
 	from {
 		transform: scale(1);
@@ -189,7 +165,8 @@ body, html {
 }
 
 .container__work {
-	margin-top: 200px;
+	//margin-top: 100px;
+  	transform: translateY(50%);
 	text-align: center;
 }
 .container__work__inner {
@@ -262,7 +239,6 @@ body, html {
 	top: 200px;
 	margin: 0 auto;
 	max-width: 550px;
-	transition: opacity .4s;
 }
 
 .modal__inner {
@@ -270,19 +246,6 @@ body, html {
 	text-align: center;
 	padding: 60px 40px;
 	box-shadow: 2px 2px 18px 4px rgba(175, 175, 175, .4);
-}
-
-.container__modal__end__db {
-	opacity: 0;
-	transition: all .4s;
-}
-
-.modal_hide {
-	animation: modal_hide .8s forwards;
-}
-
-.modal_show {
-	animation: modal_show .8s forwards;
 }
 
 .modal__inner__head {
@@ -315,4 +278,9 @@ body, html {
 .modal__inner__button:hover {
 	background: $accent;
 	color: #fff;
+}
+
+.hidden {
+	opacity: 0;
+	display: none;
 }
